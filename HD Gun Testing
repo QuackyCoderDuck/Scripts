@@ -1,0 +1,88 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Gun Testing", "BloodTheme")
+--MAIN
+local Tab = Window:NewTab("Main")
+local MainSection = Tab:NewSection("Main")
+local Tab = Window:NewTab("Credits")
+local CreditsSection = Tab:NewSection("Credits")
+--BUTTONS
+MainSection:NewButton("Remove anim AK47", "Removing anim,hands and more", function()
+game.ReplicatedStorage.GunData.AK47.Animations.Shoot:Destroy()
+game.ReplicatedStorage.GunData.AK47.Animations.Reload:Destroy()
+game.ReplicatedStorage.GunData.AK47.Animations.Run:Destroy()
+game.ReplicatedStorage.GunData.AK47.Animations.ShootAttachmentReticle:Destroy()
+game.ReplicatedStorage.GunData.AK47.Animations.Idle:Destroy()
+game.ReplicatedStorage.GunData.AK47.Animations.ReloadEmpty:Destroy()
+game.ReplicatedStorage.GunData.AK47.ViewModel["Left Arm"]:Destroy()
+game.ReplicatedStorage.GunData.AK47.ViewModel["Right Arm"]:Destroy()
+game.ReplicatedStorage.GunData.AK47.ViewModel.Torso:Destroy()
+game.ReplicatedStorage.GunData.AK47.ViewModel.Weapon.Misc:Destroy()
+game.ReplicatedStorage.GunData.AK47.ViewModel.Weapon.Mag:Destroy()
+game.ReplicatedStorage.GunData.AK47.ViewModel.Weapon.Mag2:Destroy()
+end)
+MainSection:NewButton("Remove anim Deagle", "Removing anim,hands and more", function()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.Shoot:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.Reload:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.ReloadEmpty:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.IdleEmpty:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.Run:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.ShootEmpty:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.Inspect:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.Idle:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.RunEmpty:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.Draw:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.Animations.DrawEmpty:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.ViewModel["Left Arm"]:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.ViewModel["Right Arm"]:Destroy()
+game.ReplicatedStorage.GunData.DesertEagleNew.ViewModel.Weapon.Static:Destroy()
+end)
+MainSection:NewButton("X-Ray(Press X)", "Walls become translucent", function()
+    local xray = false
+local mouse = game.Players.LocalPlayer:GetMouse()
+ 
+mouse.KeyDown:connect(function(key)
+    if key:lower() == "x" then
+        xray = not xray
+        local t = 0
+        if xray then t = 0.8 else t = 0 end
+        for i,v in pairs(game.Workspace:GetDescendants()) do
+            if v:IsA("Part") and not v.Parent:FindFirstChild("HumanoidRootPart") then
+                v.Transparency = t
+            end
+        end
+    end
+end)
+end)
+MainSection:NewButton("Float", "Down Z, Disable 6, Up SpaceBar", function()
+    local Float = Instance.new("Part",workspace);
+Float.Size = Vector3.new(6,1,6);
+Float.Anchored = true;
+Float.CanCollide = true;
+Float.Transparency = 1;
+
+game:GetService("UserInputService").InputBegan:Connect(function(InputObject,GameProcessed)
+    if GameProcessed then
+        return;
+    end
+    if InputObject.KeyCode == Enum.KeyCode.Six then
+        if not Float.CanCollide then
+            Float.CanCollide = true;
+        else
+            Float.CanCollide = false;
+        end
+    end
+end)
+
+while true do
+    game:GetService("RunService").RenderStepped:Wait()
+    if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.Z) then
+        pcall(function() Float.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-4,0) end)
+    else
+        pcall(function() Float.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-3.5,0) end)
+    end
+end
+end)
+MainSection:NewButton("Rejoin", "Rejoin server", function()
+    local ts = game:GetService("TeleportService")
+
+local p = game:GetService("Players").LocalPlayer
